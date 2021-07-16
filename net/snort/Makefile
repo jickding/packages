@@ -8,8 +8,8 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=snort
-PKG_VERSION:=2.9.16.1
-PKG_RELEASE:=1
+PKG_VERSION:=2.9.17.1
+PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_LICENSE:=GPL-2.0
 PKG_MAINTAINER:=W. Michael Petullo <mike@flyn.org>
@@ -18,7 +18,7 @@ PKG_CPE_ID:=cpe:/a:snort:snort
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://www.snort.org/downloads/archive/snort/ \
 	@SF/$(PKG_NAME)
-PKG_HASH:=e3ac45a1a3cc2c997d52d19cd92f1adf5641c3a919387adab47a4d13a9dc9f8e
+PKG_HASH:=303d3d5dc5affecfeaad3a331d3163f901d48d960fdd6598cb55c6d1591eed82
 
 PKG_BUILD_DEPENDS:=libtirpc
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)/$(PKG_NAME)-$(PKG_VERSION)
@@ -58,8 +58,8 @@ CONFIGURE_ARGS += \
 	--with-libpcap-libraries="$(STAGING_DIR)/usr/lib" \
 	--with-libpcre-includes="$(STAGING_DIR)/usr/include" \
 	--with-libpcre-libraries="$(STAGING_DIR)/usr/lib" \
-	--with-daq-includes="$(STAGING_DIR)/usr/include" \
-	--with-daq-libraries="$(STAGING_DIR)/usr/lib" \
+	--with-daq-includes="$(STAGING_DIR)/usr/include/daq2" \
+	--with-daq-libraries="$(STAGING_DIR)/usr/lib/daq2" \
 	--disable-static-daq
 
 ifeq ($(CONFIG_SNORT_LZMA),)

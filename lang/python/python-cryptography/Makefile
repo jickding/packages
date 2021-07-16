@@ -8,11 +8,11 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=python-cryptography
-PKG_VERSION:=3.2.1
+PKG_VERSION:=3.4.7
 PKG_RELEASE:=1
 
 PYPI_NAME:=cryptography
-PKG_HASH:=d3d5e10be0cf2a12214ddee45c6bd203dab435e3d83b4560c03066eda600bfe3
+PKG_HASH:=3d10de8116d25649631977cb37da6cbdd2d6fa0e0281d014a5b7d337255ca713
 
 PKG_LICENSE:=Apache-2.0 BSD-3-Clause
 PKG_LICENSE_FILES:=LICENSE.APACHE LICENSE.BSD
@@ -20,7 +20,7 @@ PKG_MAINTAINER:=Jeffery To <jeffery.to@gmail.com>, Alexandru Ardelean <ardeleana
 
 PKG_BUILD_DEPENDS:=libffi/host
 
-HOST_PYTHON3_PACKAGE_BUILD_DEPENDS:=cffi  # cffi>=1.8,!=1.11.3
+HOST_PYTHON3_PACKAGE_BUILD_DEPENDS:=cffi  # cffi>=1.12
 
 include ../pypi.mk
 include $(INCLUDE_DIR)/package.mk

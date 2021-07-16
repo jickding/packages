@@ -8,12 +8,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=less
-PKG_VERSION:=562
-PKG_RELEASE:=2
+PKG_VERSION:=590
+PKG_RELEASE:=$(AUTORELEASE)
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=http://www.greenwoodsoftware.com/less
-PKG_HASH:=eab470c7c928132441541aa49b1352c0fc699c30f762dfaeb3bf88e6f0fd701b
+PKG_HASH:=6aadf54be8bf57d0e2999a3c5d67b1de63808bb90deb8f77b028eafae3a08e10
 
 PKG_LICENSE:=GPL-3.0-or-later
 PKG_LICENSE_FILES:=COPYING
@@ -30,7 +30,7 @@ define Package/less/Default
   CATEGORY:=Utilities
   TITLE:=Pager program similar to more
   URL:=http://www.greenwoodsoftware.com/less/
-  ALTERNATIVES:=200:/usr/bin/less:/usr/bin/gnu-less
+  ALTERNATIVES:=200:/usr/bin/less:/usr/libexec/less-gnu
 endef
 
 define Package/less/Default/description
@@ -70,8 +70,8 @@ ifeq ($(BUILD_VARIANT),wide)
 endif
 
 define Package/less/install
-	$(INSTALL_DIR) $(1)/usr/bin
-	$(CP) $(PKG_INSTALL_DIR)/usr/bin/less $(1)/usr/bin/gnu-less
+	$(INSTALL_DIR) $(1)/usr/libexec
+	$(CP) $(PKG_INSTALL_DIR)/usr/bin/less $(1)/usr/libexec/less-gnu
 endef
 
 Package/less-wide/install = $(Package/less/install)

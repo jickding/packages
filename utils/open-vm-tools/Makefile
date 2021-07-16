@@ -8,13 +8,13 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=open-vm-tools
-PKG_VERSION:=11.1.5
+PKG_VERSION:=11.3.0
 PKG_RELEASE:=1
 
-PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-16724464.tar.gz
+PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-18090558.tar.gz
 PKG_SOURCE_URL:=https://github.com/vmware/open-vm-tools/releases/download/stable-$(PKG_VERSION)
-PKG_HASH:=cb33171b22872d66632b4151feafd4da480aee0c6bd5dcc188651984c1e9c511
-PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)-16724464
+PKG_HASH:=9bad3ee755340853bf7990e92f3d3880959a73e0749e8aaae62730854368bd2c
+PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)-18090558
 
 PKG_LICENSE:=LGPL-2.1-or-later
 PKG_LICENSE_FILES:=LICENSE
@@ -79,6 +79,11 @@ CONFIGURE_ARGS+= \
 	--enable-resolutionkms=no
 
 TARGET_LDFLAGS += -liconv
+
+define Build/Prepare
+	$(call Build/Prepare/Default)
+	mv $(PKG_BUILD_DIR)/lib/include/poll.h $(PKG_BUILD_DIR)/lib/include/vm_poll.h
+endef
 
 define Package/open-vm-tools/install
 	$(INSTALL_DIR) $(1)/etc/init.d/

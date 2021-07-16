@@ -1,48 +1,23 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ninja
-PKG_VERSION:=1.10.1
-PKG_RELEASE:=2
+PKG_VERSION:=1.10.2
+PKG_RELEASE:=3
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://codeload.github.com/ninja-build/ninja/tar.gz/v$(PKG_VERSION)?
-PKG_HASH:=a6b6f7ac360d4aabd54e299cc1d8fa7b234cd81b9401693da21221c62569a23e
+PKG_HASH:=ce35865411f0490368a8fc383f29071de6690cbadc27704734978221f25e2bed
 
 PKG_MAINTAINER:=Andre Heider <a.heider@gmail.com>
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=COPYING
 
-PKG_BUILD_DEPENDS:=ninja/host
-
-include $(INCLUDE_DIR)/host-build.mk
 include $(INCLUDE_DIR)/package.mk
-include ./ninja.mk
 
 CONFIGURE_ARGS:=
 ifneq ($(findstring c,$(OPENWRT_VERBOSE)),)
   CONFIGURE_ARGS+=--verbose
 endif
-
-define Host/Configure
-endef
-
-define Host/Compile
-	cd $(HOST_BUILD_DIR) && \
-		CXX="$(HOSTCXX)" \
-		CXXFLAGS="$(HOST_CXXFLAGS) $(HOST_CPPFLAGS)" \
-		LDFLAGS="$(HOST_LDFLAGS)" \
-		$(STAGING_DIR_HOST)/bin/$(PYTHON) configure.py --bootstrap $(CONFIGURE_ARGS)
-endef
-
-define Host/Install
-	$(INSTALL_DIR) $(STAGING_DIR_HOSTPKG)/bin
-	$(INSTALL_BIN) $(HOST_BUILD_DIR)/ninja $(STAGING_DIR_HOSTPKG)/bin/
-endef
-
-define Host/Clean
-	$(call Host/Clean/Default)
-	rm -f $(STAGING_DIR_HOSTPKG)/bin/ninja
-endef
 
 define Package/ninja
   SECTION:=devel
@@ -70,8 +45,7 @@ define Build/Configure
 endef
 
 define Build/Compile
-	$(call Ninja,-C $(PKG_BUILD_DIR),)
+	+$(NINJA) -C $(PKG_BUILD_DIR) $(1)
 endef
 
-$(eval $(call HostBuild))
 $(eval $(call BuildPackage,ninja))

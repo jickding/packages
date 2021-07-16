@@ -1,14 +1,14 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cni-plugins
-PKG_VERSION:=0.8.7
-PKG_RELEASE:=2
+PKG_VERSION:=0.9.1
+PKG_RELEASE:=$(AUTORELEASE)
 PKG_LICENSE:=Apache-2.0
 PKG_LICENSE_FILES:=LICENSE
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://github.com/containernetworking/plugins/archive/v$(PKG_VERSION)
-PKG_HASH:=de9fa170b4b6d38f6ff5287b313ddaf3c31f70bccb10e971ad59adadae22dd74
+PKG_HASH:=35e96c6c47b9d080d1cbdcfca02808b01a95464607cd2a2c971b3ad596285928
 
 PKG_MAINTAINER:=Daniel Golle <daniel@makrotopia.org>, Paul Spooren <mail@aparcar.org>
 
@@ -31,7 +31,7 @@ define Package/cni-plugins
   CATEGORY:=Utilities
   TITLE:=cni-plugins
   URL:=https://github.com/containernetworking/cni-plugins
-  DEPENDS:=$(GO_ARCH_DEPENDS) +ip-full
+  DEPENDS:=$(GO_ARCH_DEPENDS) +ip-full +kmod-veth
 endef
 
 define Package/cni-plugins/description
